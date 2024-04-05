@@ -21,43 +21,25 @@ namespace ProyectoJackeNail.Controllers
         // GET: Agendamientos
         public async Task<IActionResult> Index()
         {
-            var trabajoFinalContext = _context.Agendamientos.Include(a => a.Cliente).Include(a => a.Empleado).Include(a => a.Servicio);
-            return View(await trabajoFinalContext.ToListAsync());
-        }
-
-        // GET: Agendamientos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var agendamiento = await _context.Agendamientos
+            var agendamientos = await _context.Agendamientos
                 .Include(a => a.Cliente)
                 .Include(a => a.Empleado)
                 .Include(a => a.Servicio)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (agendamiento == null)
-            {
-                return NotFound();
-            }
+                .ToListAsync();
 
-            return View(agendamiento);
+            return View(agendamientos);
         }
 
         // GET: Agendamientos/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Id");
-            ViewData["ServicioId"] = new SelectList(_context.Services, "Id", "Id");
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre");
+            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Nombre");
+            ViewData["ServicioId"] = new SelectList(_context.Services, "Id", "Servicio");
             return View();
         }
 
         // POST: Agendamientos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ClienteId,ServicioId,EmpleadoId,FechaAgenda,EstadoAgenda")] Agendamiento agendamiento)
@@ -68,9 +50,10 @@ namespace ProyectoJackeNail.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", agendamiento.ClienteId);
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Id", agendamiento.EmpleadoId);
-            ViewData["ServicioId"] = new SelectList(_context.Services, "Id", "Id", agendamiento.ServicioId);
+
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre", agendamiento.ClienteId);
+            ViewData["EmpleadoId"] = new SelectList(_context.Empleados, "Id", "Nombre", agendamiento.EmpleadoId);
+            ViewData["ServicioId"] = new SelectList(_context.Services, "Id", "Servicio", agendamiento.ServicioId);
             return View(agendamiento);
         }
 

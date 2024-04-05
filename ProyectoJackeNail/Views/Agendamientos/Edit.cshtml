@@ -5,51 +5,153 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<style>
+    /* Estilos adicionales según tus preferencias */
+    .rounded-border {
+        border: 2px solid #007bff;
+        border-radius: 20px;
+        padding: 20px;
+    }
 
-<h4>Agendamiento</h4>
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .form-floating {
+        position: relative;
+    }
+
+        .form-floating input,
+        .form-floating select,
+        .form-floating textarea {
+            padding-top: 1.625rem;
+        }
+
+        .form-floating label {
+            position: absolute;
+            top: 0.625rem;
+            left: 0.75rem;
+            transition: 0.2s;
+            color: #6c757d;
+            font-size: 0.875rem;
+            cursor: text;
+        }
+
+        .form-floating input:focus,
+        .form-floating select:focus,
+        .form-floating textarea:focus {
+            padding-top: 1.625rem;
+        }
+
+            .form-floating input:focus + label,
+            .form-floating select:focus + label,
+            .form-floating textarea:focus + label,
+            .form-floating input:not(:placeholder-shown) + label,
+            .form-floating select:not(:placeholder-shown) + label,
+            .form-floating textarea:not(:placeholder-shown) + label {
+                font-size: 0.75rem;
+                color: #007bff;
+                transform: translateY(-1.625rem) scale(0.85);
+            }
+
+    .card {
+        background-color: #f8f9fa;
+        border: 0;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 0;
+    }
+
+    .form-group {
+        margin-bottom: 30px; /* Aumentado el espacio entre los campos */
+    }
+</style>
+
+<h1>Edit</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ClienteId" class="control-label"></label>
-                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
-                <span asp-validation-for="ClienteId" class="text-danger"></span>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card rounded-border">
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label asp-for="ClienteId" class="control-label"></label>
+                        <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                        <span asp-validation-for="ClienteId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ServicioId" class="control-label"></label>
+                        <select asp-for="ServicioId" class="form-control" asp-items="ViewBag.ServicioId"></select>
+                        <span asp-validation-for="ServicioId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EmpleadoId" class="control-label"></label>
+                        <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
+                        <span asp-validation-for="EmpleadoId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FechaAgenda" class="control-label"></label>
+                        <input asp-for="FechaAgenda" class="form-control" />
+                        <span asp-validation-for="FechaAgenda" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EstadoAgenda" class="control-label"></label>
+                        <select asp-for="EstadoAgenda" class="form-control" required>
+                            <option value="">Seleccionar estado</option>
+                            <option value="En proceso">En proceso</option>
+                            <option value="Terminado">Terminado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                        <span asp-validation-for="EstadoAgenda" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="ServicioId" class="control-label"></label>
-                <select asp-for="ServicioId" class="form-control" asp-items="ViewBag.ServicioId"></select>
-                <span asp-validation-for="ServicioId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label"></label>
-                <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
-                <span asp-validation-for="EmpleadoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaAgenda" class="control-label"></label>
-                <input asp-for="FechaAgenda" class="form-control" />
-                <span asp-validation-for="FechaAgenda" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoAgenda" class="control-label"></label>
-                <input asp-for="EstadoAgenda" class="form-control" />
-                <span asp-validation-for="EstadoAgenda" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
+<div class="text-center">
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

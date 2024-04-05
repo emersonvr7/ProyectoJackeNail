@@ -5,47 +5,69 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<style>
+    /* Estilos adicionales según tus preferencias */
+    /* Puedes agregar más estilos aquí según sea necesario */
+</style>
 
-<h4>Agendamiento</h4>
+<h1>Create</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ClienteId" class="control-label"></label>
-                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card rounded-border">
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="ClienteId" class="control-label"></label>
+                        <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ServicioId" class="control-label"></label>
+                        <select asp-for="ServicioId" class="form-control" asp-items="ViewBag.ServicioId"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EmpleadoId" class="control-label"></label>
+                        <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FechaAgenda" class="control-label"></label>
+                        <input asp-for="FechaAgenda" class="form-control" />
+                        <span asp-validation-for="FechaAgenda" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EstadoAgenda" class="control-label"></label>
+                        <select asp-for="EstadoAgenda" class="form-control" required>
+                            <option value="">Seleccionar estado</option>
+                            <option value="En proceso">En proceso</option>
+                            <option value="Terminado">Terminado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                        <span asp-validation-for="EstadoAgenda" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="ServicioId" class="control-label"></label>
-                <select asp-for="ServicioId" class ="form-control" asp-items="ViewBag.ServicioId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label"></label>
-                <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaAgenda" class="control-label"></label>
-                <input asp-for="FechaAgenda" class="form-control" />
-                <span asp-validation-for="FechaAgenda" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoAgenda" class="control-label"></label>
-                <input asp-for="EstadoAgenda" class="form-control" />
-                <span asp-validation-for="EstadoAgenda" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
+<div class="text-center">
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

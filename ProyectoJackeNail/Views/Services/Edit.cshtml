@@ -5,56 +5,152 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .rounded-border {
+        border: 2px solid #007bff;
+        border-radius: 20px;
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .form-floating {
+        position: relative;
+    }
+
+        .form-floating input,
+        .form-floating select,
+        .form-floating textarea {
+            padding-top: 1.625rem;
+        }
+
+        .form-floating label {
+            position: absolute;
+            top: 0.625rem;
+            left: 0.75rem;
+            transition: 0.2s;
+            color: #6c757d;
+            font-size: 0.875rem;
+            cursor: text;
+        }
+
+        .form-floating input:focus,
+        .form-floating select:focus,
+        .form-floating textarea:focus {
+            padding-top: 1.625rem;
+        }
+
+            .form-floating input:focus + label,
+            .form-floating select:focus + label,
+            .form-floating textarea:focus + label,
+            .form-floating input:not(:placeholder-shown) + label,
+            .form-floating select:not(:placeholder-shown) + label,
+            .form-floating textarea:not(:placeholder-shown) + label {
+                font-size: 0.75rem;
+                color: #007bff;
+                transform: translateY(-1.625rem) scale(0.85);
+            }
+
+    #imgPreview {
+        max-width: 200px;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
+
 <h1>Edit</h1>
 
 <h4>Service</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Servicio" class="control-label"></label>
-                <input asp-for="Servicio" class="form-control" />
-                <span asp-validation-for="Servicio" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card rounded-border">
+            <div class="card-body">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input asp-for="Servicio" class="form-control" />
+                            <label asp-for="Servicio" class="control-label"></label>
+                            <span asp-validation-for="Servicio" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input asp-for="Precio" class="form-control" />
+                            <label asp-for="Precio" class="control-label"></label>
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input asp-for="Tiempo" class="form-control" />
+                            <label asp-for="Tiempo" class="control-label"></label>
+                            <span asp-validation-for="Tiempo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ImgServicio" class="control-label">Imagen del Servicio</label>
+                        <input type="file" name="file" class="form-control" id="fileInput" onchange="previewImage()" />
+                        <span asp-validation-for="ImgServicio" class="text-danger"></span>
+                        <img id="imgPreview" src="#" alt="Preview" style="display: none;" />
+                    </div>
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input asp-for="NivelUña" class="form-control" />
+                            <label asp-for="NivelUña" class="control-label"></label>
+                            <span asp-validation-for="NivelUña" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="EstadoServicio" class="form-select">
+                            <option value="Activo" selected="@Model.EstadoServicio == " Activo"">Activo</option>
+                            <option value="Inactivo" selected="@Model.EstadoServicio == " Inactivo"">Inactivo</option>
+                        </select>
+                        <label asp-for="EstadoServicio" class="control-label"></label>
+                        <span asp-validation-for="EstadoServicio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tiempo" class="control-label"></label>
-                <input asp-for="Tiempo" class="form-control" />
-                <span asp-validation-for="Tiempo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImgServicio" class="control-label"></label>
-                <input asp-for="ImgServicio" class="form-control" />
-                <span asp-validation-for="ImgServicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NivelUña" class="control-label"></label>
-                <input asp-for="NivelUña" class="form-control" />
-                <span asp-validation-for="NivelUña" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoServicio" class="control-label"></label>
-                <input asp-for="EstadoServicio" class="form-control" />
-                <span asp-validation-for="EstadoServicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
+<div class="text-center">
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function previewImage() {
+            var fileInput = document.getElementById('fileInput');
+            var imgPreview = document.getElementById('imgPreview');
+            imgPreview.style.display = 'block';
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>
 }

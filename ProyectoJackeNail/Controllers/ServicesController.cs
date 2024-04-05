@@ -122,6 +122,9 @@ namespace ProyectoJackeNail.Controllers
 
                     _context.Update(service);
                     await _context.SaveChangesAsync();
+
+                    // Redireccionar al usuario a la lista de servicios (Index) después de editar correctamente
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -134,7 +137,6 @@ namespace ProyectoJackeNail.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(service);
         }

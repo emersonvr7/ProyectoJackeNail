@@ -1,0 +1,59 @@
+﻿@model ProyectoJackeNail.Models.Service
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Servicio" class="control-label"></label>
+                <input asp-for="Servicio" class="form-control" />
+                <span asp-validation-for="Servicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tiempo" class="control-label"></label>
+                <input asp-for="Tiempo" class="form-control" />
+                <span asp-validation-for="Tiempo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgServicio" class="control-label"></label>
+                <input asp-for="ImgServicio" class="form-control" />
+                <span asp-validation-for="ImgServicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NivelUña" class="control-label"></label>
+                <input asp-for="NivelUña" class="form-control" />
+                <span asp-validation-for="NivelUña" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoServicio" class="control-label"></label>
+                <input asp-for="EstadoServicio" class="form-control" />
+                <span asp-validation-for="EstadoServicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

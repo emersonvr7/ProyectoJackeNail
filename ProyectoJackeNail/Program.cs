@@ -13,9 +13,9 @@ namespace ProyectoJackeNail
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<TrabajoFinalContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            var app = builder.Build();
+            var app = builder.Build();  
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

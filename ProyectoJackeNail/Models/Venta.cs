@@ -17,6 +17,8 @@ public partial class Venta
 
     public decimal TotalVenta { get; set; }
 
+    public virtual ICollection<DetalleVentum> DetalleVenta { get; set; } = new List<DetalleVentum>();
+
     public virtual Empleado? IdClienteNavigation { get; set; }
 
     public virtual Cliente? IdEmpleadoNavigation { get; set; }

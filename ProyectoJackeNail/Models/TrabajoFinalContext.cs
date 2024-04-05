@@ -21,6 +21,10 @@ public partial class TrabajoFinalContext : DbContext
 
     public virtual DbSet<Compra> Compras { get; set; }
 
+    public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
+
+    public virtual DbSet<DetalleVentum> DetalleVenta { get; set; }
+
     public virtual DbSet<Empleado> Empleados { get; set; }
 
     public virtual DbSet<Insumo> Insumos { get; set; }
@@ -38,15 +42,7 @@ public partial class TrabajoFinalContext : DbContext
     public virtual DbSet<Venta> Ventas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if(!optionsBuilder.IsConfigured)
-        {
-        //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        //=> optionsBuilder.UseSqlServer("Server=EMERSON\\MSSQLSERVERS;Initial Catalog=TrabajoFinal;integrated security=true; TrustServerCertificate=true");
-
-
-        }
-    }
+        => optionsBuilder.UseSqlServer("Name=DefaultConnection");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -112,6 +108,53 @@ public partial class TrabajoFinalContext : DbContext
             entity.HasOne(d => d.IdProveedorNavigation).WithMany(p => p.Compras)
                 .HasForeignKey(d => d.IdProveedor)
                 .HasConstraintName("FK__Compra__IdProvee__5CD6CB2B");
+        });
+
+        modelBuilder.Entity<DetalleCompra>(entity =>
+        {
+            entity.HasKey(e => e.IdDetalle).HasName("PK__DetalleC__E43646A5D810B5FC");
+
+            entity.ToTable("DetalleCompra");
+
+            entity.Property(e => e.Categoria)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ImagenInsumo)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NombreInsumo)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PrecioUnitario).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.TotalValorInsumos)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("totalValorInsumos");
+
+            entity.HasOne(d => d.IdCompraNavigation).WithMany(p => p.DetalleCompras)
+                .HasForeignKey(d => d.IdCompra)
+                .HasConstraintName("FK__DetalleCo__IdCom__6477ECF3");
+
+            entity.HasOne(d => d.IdInsumoNavigation).WithMany(p => p.DetalleCompras)
+                .HasForeignKey(d => d.IdInsumo)
+                .HasConstraintName("FK__DetalleCo__IdIns__656C112C");
+        });
+
+        modelBuilder.Entity<DetalleVentum>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__DetalleV__3214EC0752EC43BC");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.PrecioUnitario).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.IdInsumoNavigation).WithMany(p => p.DetalleVenta)
+                .HasForeignKey(d => d.IdInsumo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DetalleVe__IdIns__6C190EBB");
+
+            entity.HasOne(d => d.IdVentaNavigation).WithMany(p => p.DetalleVenta)
+                .HasForeignKey(d => d.IdVenta)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DetalleVe__IdVen__6B24EA82");
         });
 
         modelBuilder.Entity<Empleado>(entity =>

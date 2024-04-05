@@ -1,0 +1,74 @@
+﻿    @model IEnumerable<ProyectoJackeNail.Models.Usuario>
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h1 class="text-3xl font-bold underline text-center">Usuarios</h1>
+    <br />
+    <p>
+        <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" asp-action="Create"><i class='bx bx-user-plus bx-sm'></i></a>
+    </p>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.NombreUsuario)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.ApellidoUsuario)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Correo)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Rol)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            @Html.DisplayFor(modelItem => item.NombreUsuario)
+                        </td>
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.ApellidoUsuario)
+                        </td>
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.Correo)
+                        </td>
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td class="px-6 py-4">
+                            @ViewBag.NombresRoles[item.Rol.IdRol]
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <form asp-action="Delete" id="DeleteForm">
+                                <a type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" asp-action="Edit" asp-route-id="@item.IdUsuario"><i class='bx bx-edit bx-sm'></i></a>
+                                @*                             <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" asp-action="Details" asp-route-id="@item.IdUsuario"><i class='bx bxs-user-detail bx-sm'></i></a>
+                            *@                             <input type="hidden" asp-for="@item.IdUsuario" />
+                                <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" asp-action="Delete" asp-route-id="@item.IdUsuario"><i class='bx bx-trash-alt bx-sm'></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    @section Scripts {
+        <script src="~/js/mi-script.js"></script>
+    }

@@ -5,62 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
+<h1 class="text-3xl font-bold underline text-center">Servicios</h1>
+<br />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class='bx bx-user-plus bx-sm'></i></a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Servicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tiempo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgServicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NivelUña)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoServicio)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Servicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tiempo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgServicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelUña)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoServicio)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<br />
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-bordered table-striped table-hover table-rounded">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">@Html.DisplayNameFor(model => model.Servicio)</th>
+                <th scope="col" class="px-6 py-3">@Html.DisplayNameFor(model => model.Precio)</th>
+                <th scope="col" class="px-6 py-3">@Html.DisplayNameFor(model => model.Tiempo)</th>
+                <th scope="col" class="px-6 py-3">Image</th>
+                <th scope="col" class="px-6 py-3">@Html.DisplayNameFor(model => model.NivelUña)</th>
+                <th scope="col" class="px-6 py-3">@Html.DisplayNameFor(model => model.EstadoServicio)</th>
+                <th scope="col" class="px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">@Html.DisplayFor(modelItem => item.Servicio)</td>
+                    <td class="px-6 py-4">@Html.DisplayFor(modelItem => item.Precio)</td>
+                    <td class="px-6 py-4">@Html.DisplayFor(modelItem => item.Tiempo)</td>
+                    <td class="px-6 py-4"><img src="@item.ImgServicio" alt="Service Image" class="w-10 h-10 rounded-full object-cover" draggable="false"></td>
+                    <td class="px-6 py-4">@Html.DisplayFor(modelItem => item.NivelUña)</td>
+                    <td class="px-6 py-4">@Html.DisplayFor(modelItem => item.EstadoServicio)</td>
+                    <td class="px-6 py-4">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary"><i class="bx bx-edit bx-sm"></i> Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info"><i class="bx bx-detail bx-sm"></i> Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="bx bx-trash bx-sm"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/mi-script.js"></script>
 }
-    </tbody>
-</table>

@@ -9,22 +9,22 @@ using ProyectoJackeNail.Models;
 
 namespace ProyectoJackeNail.Controllers
 {
-    public class RolesController : Controller
+    public class PermisoesController : Controller
     {
         private readonly TrabajoFinalContext _context;
 
-        public RolesController(TrabajoFinalContext context)
+        public PermisoesController(TrabajoFinalContext context)
         {
             _context = context;
         }
 
-        // GET: Roles
+        // GET: Permisoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Roles.ToListAsync());
+            return View(await _context.Permisos.ToListAsync());
         }
 
-        // GET: Roles/Details/5
+        // GET: Permisoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.IdRol == id);
-            if (role == null)
+            var permiso = await _context.Permisos
+                .FirstOrDefaultAsync(m => m.IdPermiso == id);
+            if (permiso == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(permiso);
         }
 
-        // GET: Roles/Create
+        // GET: Permisoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Permisoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRol,NombreRol")] Role role)
+        public async Task<IActionResult> Create([Bind("IdPermiso,NombrePermiso")] Permiso permiso)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(role);
+                _context.Add(permiso);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(permiso);
         }
 
-        // GET: Roles/Edit/5
+        // GET: Permisoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
+            var permiso = await _context.Permisos.FindAsync(id);
+            if (permiso == null)
             {
                 return NotFound();
             }
-            return View(role);
+            return View(permiso);
         }
 
-        // POST: Roles/Edit/5
+        // POST: Permisoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRol,NombreRol")] Role role)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPermiso,NombrePermiso")] Permiso permiso)
         {
-            if (id != role.IdRol)
+            if (id != permiso.IdPermiso)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace ProyectoJackeNail.Controllers
             {
                 try
                 {
-                    _context.Update(role);
+                    _context.Update(permiso);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoleExists(role.IdRol))
+                    if (!PermisoExists(permiso.IdPermiso))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace ProyectoJackeNail.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(permiso);
         }
 
-        // GET: Roles/Delete/5
+        // GET: Permisoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +123,34 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.IdRol == id);
-            if (role == null)
+            var permiso = await _context.Permisos
+                .FirstOrDefaultAsync(m => m.IdPermiso == id);
+            if (permiso == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(permiso);
         }
 
-        // POST: Roles/Delete/5
+        // POST: Permisoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role != null)
+            var permiso = await _context.Permisos.FindAsync(id);
+            if (permiso != null)
             {
-                _context.Roles.Remove(role);
+                _context.Permisos.Remove(permiso);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoleExists(int id)
+        private bool PermisoExists(int id)
         {
-            return _context.Roles.Any(e => e.IdRol == id);
+            return _context.Permisos.Any(e => e.IdPermiso == id);
         }
     }
 }

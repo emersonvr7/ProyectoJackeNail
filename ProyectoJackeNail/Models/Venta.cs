@@ -17,6 +17,14 @@ public partial class Venta
 
     public decimal TotalVenta { get; set; }
 
+    public decimal? Iva { get; set; }
+
+    public decimal? Subtotal { get; set; }
+
+    public decimal? Descuento { get; set; }
+
+    public string? EstadoVenta { get; set; }
+
     public virtual ICollection<DetalleVentum> DetalleVenta { get; set; } = new List<DetalleVentum>();
 
     public virtual Empleado? IdClienteNavigation { get; set; }

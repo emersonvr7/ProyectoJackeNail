@@ -14,6 +14,4 @@ public partial class Role
     public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
 
     public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
-
-    public virtual ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
 }

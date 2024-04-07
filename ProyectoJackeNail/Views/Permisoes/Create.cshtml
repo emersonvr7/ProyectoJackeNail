@@ -5,30 +5,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1 class="text-3xl font-bold underline text-center">Create</h1>
 
-<h4>Permiso</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NombrePermiso" class="control-label"></label>
-                <input asp-for="NombrePermiso" class="form-control" />
-                <span asp-validation-for="NombrePermiso" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<h4 class="text-lg font-semibold mt-5">Permiso</h4>
+<hr class="mt-1 mb-4 border-2 border-gray-300" />
+
+<div class="max-w-3xl mx-auto">
+    <form asp-action="Create" method="post" class="mt-5">
+        <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+
+        <div class="mb-4">
+            <label asp-for="NombrePermiso" class="block text-sm font-medium text-gray-700">Nombre de Permiso</label>
+            <input asp-for="NombrePermiso" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
+            <span asp-validation-for="NombrePermiso" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Create
+            </button>
+        </div>
+    </form>
+
+    <div class="mt-6">
+        <a asp-action="Index" class="text-blue-600 hover:text-blue-800">&laquo; Back to List</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

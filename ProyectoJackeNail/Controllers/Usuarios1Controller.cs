@@ -9,22 +9,23 @@ using ProyectoJackeNail.Models;
 
 namespace ProyectoJackeNail.Controllers
 {
-    public class PermisosController : Controller
+    public class Usuarios1Controller : Controller
     {
         private readonly TrabajoFinalContext _context;
 
-        public PermisosController(TrabajoFinalContext context)
+        public Usuarios1Controller(TrabajoFinalContext context)
         {
             _context = context;
         }
 
-        // GET: Permisos
+        // GET: Usuarios1
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Permisos.ToListAsync());
+            var trabajoFinalContext = _context.Usuarios.Include(u => u.Rol);
+            return View(await trabajoFinalContext.ToListAsync());
         }
 
-        // GET: Permisos/Details/5
+        // GET: Usuarios1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,42 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var permiso = await _context.Permisos
-                .FirstOrDefaultAsync(m => m.IdPermiso == id);
-            if (permiso == null)
+            var usuario = await _context.Usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefaultAsync(m => m.IdUsuario == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(permiso);
+            return View(usuario);
         }
 
-        // GET: Permisos/Create
+        // GET: Usuarios1/Create
         public IActionResult Create()
         {
+            ViewData["RolId"] = new SelectList(_context.Roles, "IdRol", "IdRol");
             return View();
         }
 
-        // POST: Permisos/Create
+        // POST: Usuarios1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPermiso,NombrePermiso")] Permiso permiso)
+        public async Task<IActionResult> Create([Bind("IdUsuario,NombreUsuario,ApellidoUsuario,Correo,Telefono,RolId")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(permiso);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(permiso);
+            ViewData["RolId"] = new SelectList(_context.Roles, "IdRol", "IdRol", usuario.RolId);
+            return View(usuario);
         }
 
-        // GET: Permisos/Edit/5
+        // GET: Usuarios1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +76,23 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var permiso = await _context.Permisos.FindAsync(id);
-            if (permiso == null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(permiso);
+            ViewData["RolId"] = new SelectList(_context.Roles, "IdRol", "IdRol", usuario.RolId);
+            return View(usuario);
         }
 
-        // POST: Permisos/Edit/5
+        // POST: Usuarios1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPermiso,NombrePermiso")] Permiso permiso)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,NombreUsuario,ApellidoUsuario,Correo,Telefono,RolId")] Usuario usuario)
         {
-            if (id != permiso.IdPermiso)
+            if (id != usuario.IdUsuario)
             {
                 return NotFound();
             }
@@ -96,12 +101,12 @@ namespace ProyectoJackeNail.Controllers
             {
                 try
                 {
-                    _context.Update(permiso);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PermisoExists(permiso.IdPermiso))
+                    if (!UsuarioExists(usuario.IdUsuario))
                     {
                         return NotFound();
                     }
@@ -112,10 +117,11 @@ namespace ProyectoJackeNail.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(permiso);
+            ViewData["RolId"] = new SelectList(_context.Roles, "IdRol", "IdRol", usuario.RolId);
+            return View(usuario);
         }
 
-        // GET: Permisos/Delete/5
+        // GET: Usuarios1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +129,35 @@ namespace ProyectoJackeNail.Controllers
                 return NotFound();
             }
 
-            var permiso = await _context.Permisos
-                .FirstOrDefaultAsync(m => m.IdPermiso == id);
-            if (permiso == null)
+            var usuario = await _context.Usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefaultAsync(m => m.IdUsuario == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(permiso);
+            return View(usuario);
         }
 
-        // POST: Permisos/Delete/5
+        // POST: Usuarios1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var permiso = await _context.Permisos.FindAsync(id);
-            if (permiso != null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Permisos.Remove(permiso);
+                _context.Usuarios.Remove(usuario);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PermisoExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Permisos.Any(e => e.IdPermiso == id);
+            return _context.Usuarios.Any(e => e.IdUsuario == id);
         }
     }
 }

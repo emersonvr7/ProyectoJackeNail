@@ -9,7 +9,7 @@
 
 <p class="text-right">
     <a asp-action="Create" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2">
-        Create New <i class='bx bx-list-plus bx-sm'></i>
+        <i class='bx bx-list-plus bx-sm'></i>
     </a>
 </p>
 
@@ -33,9 +33,9 @@
                         @Html.DisplayFor(modelItem => item.NombrePermiso)
                     </td>
                     <td class="py-4 px-6">
-                        <a asp-action="Edit" asp-route-id="@item.IdPermiso" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"><i class='bx bx-edit bx-sm'></i> Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.IdPermiso" class="focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-blue-900"><i class='bx bx-info-circle bx-sm'></i> Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdPermiso" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"><i class='bx bx-trash bx-sm'></i> Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.IdPermiso" class="btn btn-sm btn-primary"><i class="bx bx-edit bx-sm"></i> </a>
+
+                        <a asp-action="Delete" asp-route-id="@item.IdPermiso" class="btn btn-sm btn-danger"><i class="bx bx-trash-alt bx-sm"></i> </a>
                     </td>
                 </tr>
             }

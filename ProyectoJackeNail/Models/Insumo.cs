@@ -15,7 +15,7 @@ public partial class Insumo
 
     public int? UsosDisponibles { get; set; }
 
-    public int? EstadoInsumo { get; set; }
+    public string? EstadoInsumo { get; set; }
 
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 

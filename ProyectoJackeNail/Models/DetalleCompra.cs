@@ -6,9 +6,8 @@ namespace ProyectoJackeNail.Models;
 public partial class DetalleCompra
 {
     public int IdDetalle { get; set; }
-
     public int? IdCompra { get; set; }
-
+    public int? IdProveedor { get; set; }
     public int? IdInsumo { get; set; }
 
     public string? ImagenInsumo { get; set; }
@@ -28,4 +27,5 @@ public partial class DetalleCompra
     public virtual Compra? IdCompraNavigation { get; set; }
 
     public virtual Insumo? IdInsumoNavigation { get; set; }
+    public virtual Insumo? IdProveedorNavigation { get; set; }
 }

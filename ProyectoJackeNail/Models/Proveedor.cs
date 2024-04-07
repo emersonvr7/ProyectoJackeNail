@@ -17,7 +17,7 @@ public partial class Proveedor
 
     public string? EmpresaProveedor { get; set; }
 
-    public int? EstadoProveedor { get; set; }
+    public string? EstadoProveedor { get; set; }
 
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }
